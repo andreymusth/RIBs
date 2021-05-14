@@ -7,6 +7,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
+import com.badoo.ribs.android.AndroidRibViewHost
 import com.badoo.ribs.android.activitystarter.ActivityBoundary
 import com.badoo.ribs.android.activitystarter.ActivityStarter
 import com.badoo.ribs.android.dialog.AlertDialogLauncher
@@ -14,17 +15,30 @@ import com.badoo.ribs.android.dialog.DialogLauncher
 import com.badoo.ribs.android.permissionrequester.PermissionRequestBoundary
 import com.badoo.ribs.android.permissionrequester.PermissionRequester
 import com.badoo.ribs.android.store.RetainedInstanceStoreViewModel
+import com.badoo.ribs.core.view.RibView
 
 open class ActivityIntegrationPoint(
     private val activity: AppCompatActivity,
     savedInstanceState: Bundle?,
-    rootViewGroup: ViewGroup
+    rootViewHostFactory: () -> RibView?
 ) : IntegrationPoint(
     lifecycleOwner = activity,
     viewLifecycleOwner = MutableLiveData<LifecycleOwner>(activity),
     savedInstanceState = savedInstanceState,
-    rootViewGroup = rootViewGroup
+    rootViewHostFactory = rootViewHostFactory
 ) {
+
+    constructor(
+        activity: AppCompatActivity,
+        savedInstanceState: Bundle?,
+        rootViewGroup: ViewGroup
+    ) : this(
+        activity = activity,
+        savedInstanceState = savedInstanceState,
+        rootViewHostFactory = { AndroidRibViewHost(rootViewGroup) }
+    )
+
+
     private val activityBoundary = ActivityBoundary(activity, requestCodeRegistry)
     private val permissionRequestBoundary = PermissionRequestBoundary(activity, requestCodeRegistry)
     private val retainedInstanceViewModel by activity.viewModels<RetainedInstanceStoreViewModel>()

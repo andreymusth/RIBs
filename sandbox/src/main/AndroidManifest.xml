@@ -13,17 +13,19 @@
         android:theme="@style/AppTheme">
 
         <activity android:name="com.badoo.ribs.sandbox.app.RootActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
 
             <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
-                <data android:scheme="app-example"/>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="app-example" />
             </intent-filter>
         </activity>
 
@@ -31,6 +33,18 @@
             android:name="com.badoo.ribs.sandbox.app.OtherActivity"
             android:label="@string/activity_other_title"
             android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".app.CoordinatorTestActivity"
+            android:exported="true"
+            android:theme="@style/AppTheme.NoActionBar">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
     </application>
 
